@@ -1,0 +1,39 @@
+<div class="content">
+    <form>
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <select 
+                class="form-select" 
+                aria-label="Default select example" 
+                name="subject" 
+                [(ngModel)]="subject" 
+                (change)="onSubjectChange(subject)">
+                <option value="" selected disabled hidden>Choose here</option>
+                <option *ngFor="let subject of subjects" [value]="subject">
+                    {{ subject }}
+                </option>
+                <option value="all">All</option>
+            </select>
+        </div>
+    </form>
+
+    <ng-container *ngIf="results && results.length > 0">
+        <div class="page-heading">Results</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Subject</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let result of results">
+                    <td>{{ result.username }}</td>
+                    <td>{{ result.subject }}</td>
+                    <td>{{ result.score }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>

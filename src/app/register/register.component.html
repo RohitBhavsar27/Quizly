@@ -1,0 +1,39 @@
+
+<div class="content">
+    <div class="page-heading">USER SIGN-UP</div>
+    <form>
+        <div class="row g-3">
+            <div class="col">
+                <label for="fname" class="form-label">First Name</label>
+                <input type="text" id="fname" name="fname" [(ngModel)]="user.fname" class="form-control"
+                    placeholder="First name" aria-label="First name">
+            </div>
+            <div class="col">
+                <label for="lname" class="form-label">Last Name</label>
+                <input type="text" id="lname" name="lname" [(ngModel)]="user.lname" class="form-control"
+                    placeholder="Last name" aria-label="Last name">
+            </div>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" id="email" name="email" [(ngModel)]="user.emailId" class="form-control"
+                placeholder="name@example.com">
+        </div>
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" [(ngModel)]="user.username" class="form-control"
+                placeholder="@username">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="user.password" class="form-control"
+                placeholder="Password must be atleast 8 characters">
+        </div>
+
+        <p>Already have an account? <a routerLink="/login">Sign In</a> Instead</p> 
+        <button type="submit" (click)="signUp()" class="btn btn-success">Sign Up</button>
+    </form>
+</div>

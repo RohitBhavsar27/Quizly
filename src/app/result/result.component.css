@@ -1,0 +1,44 @@
+/* Page heading */
+.page-heading {
+	font-size: 35px;
+	font-weight: bold;
+	color: #333;
+	margin: 20px 0;
+	text-align: center;
+}
+
+.content {
+    display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+/* Table styles */
+table {
+    max-width: 650px; /* Same as the form max width */
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

@@ -1,0 +1,57 @@
+<html>
+
+<body>
+    <div class="content">
+        <div class="box-container">
+            <form>
+                <input type="hidden" name="qno" [(ngModel)]="question.qno">
+                <input type="hidden" name="qtext" [(ngModel)]="question.qtext">
+                <input type="hidden" name="answer" [(ngModel)]="question.answer">
+
+                <div class="question">
+                    <label>Q.{{question.qno}}:</label>
+                    <span>{{question.qtext}}</span>
+                </div>
+                <div class="question-options">
+
+                    <div>
+                        <input [checked]="isChecked(question.op1)" name="options" type="radio" (change)="saveAnswer()"
+                            value="{{question.op1}}" [(ngModel)]="submittedAnswer" name="radioModel"
+                            [(ngModel)]="selected">
+                        <span>{{question.op1}}</span>
+                    </div>
+
+                    <div>
+                        <input [checked]="isChecked(question.op2)" name="options" type="radio" (change)="saveAnswer()"
+                            value="{{question.op2}}" [(ngModel)]="submittedAnswer" name="radioModel"
+                            [(ngModel)]="selected">
+                        <span>{{question.op2}}</span>
+                    </div>
+
+                    <div>
+                        <input [checked]="isChecked(question.op3)" name="options" type="radio" (change)="saveAnswer()"
+                            value="{{question.op3}}" [(ngModel)]="submittedAnswer" name="radioModel"
+                            [(ngModel)]="selected">
+                        <span>{{question.op3}}</span>
+                    </div>
+
+                    <div>
+                        <input [checked]="isChecked(question.op4)" name="options" type="radio" (change)="saveAnswer()"
+                            value="{{question.op4}}" [(ngModel)]="submittedAnswer" name="radioModel"
+                            [(ngModel)]="selected">
+                        <span>{{question.op4}}</span>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <input type="button" value="Previous" class="btn btn-primary" (click)="navigatePrevious()">
+                    <input type="button" value="Next" class="btn btn-primary" (click)="navigateNext()">
+                    <input type="button" value="Submit Test" class="btn btn-success" (click)="endExam()">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

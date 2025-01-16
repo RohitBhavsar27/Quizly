@@ -1,0 +1,25 @@
+<div class="content">
+    <!-- Page heading -->
+    <div class="page-heading">Test Statistics</div>
+    <span>{{username}}, Your Score is {{score}}</span>
+    <ng-container *ngIf="allanswer && allanswer.length > 0">
+        <table>
+            <thead>
+                <tr>
+                    <th>Q.No</th>
+                    <th>Question</th>
+                    <th>Correct Answer</th>
+                    <th>Your Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let answer of allanswer" [style.color]="compare(answer.submittedAnswer, answer.correctAnswer)">
+                    <td>{{ answer.qno }}</td>
+                    <td>{{ answer.qtext }}</td>
+                    <td>{{ answer.correctAnswer }}</td>
+                    <td>{{ answer.submittedAnswer }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>

@@ -3,6 +3,8 @@ import { Answer, Questions, QuestionService } from '../question.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Results } from '../admin.service';
+import { ResultService } from '../result.service';
 
 @Component({
     selector: 'app-question',
@@ -12,24 +14,24 @@ import { CommonModule } from '@angular/common';
 })
 export class QuestionComponent implements OnInit {
 
-    subject: any = ''; 
-    questions: Questions[] = []; 
-    question: Questions = new Questions(0, '', '', '', '', '', '', ''); 
-    message: any = ''; 
-    username: any = ''; 
-    index: number = 0; 
-    allAnswers: Answer[] = []; 
-    answer: Answer = new Answer(0, '', '', ''); 
+    subject: any = '';
+    questions: Questions[] = [];
+    question: Questions = new Questions(0, '', '', '', '', '', '', '');
+    message: any = '';
+    username: any = '';
+    index: number = 0;
+    allAnswers: Answer[] = [];
+    answer: Answer = new Answer(0, '', '', '');
     submittedAnswer: string = ''; // Set default submittedAnswer value to an empty string 
     score: number = 0
     selected: boolean; // Set default selected value to an empty string 
 
 
-    constructor(private questionService: QuestionService, private router: Router) {
+    constructor(private questionService: QuestionService, private resultService: ResultService, private router: Router) {
         this.message = sessionStorage.getItem("message");
         this.subject = sessionStorage.getItem("subject");
         this.username = sessionStorage.getItem("username");
-        this.selected= false; // Set default selected value to an empty string 
+        this.selected = false; // Set default selected value to an empty string 
     }
 
     // Get all question related to subject on page load
@@ -92,6 +94,8 @@ export class QuestionComponent implements OnInit {
                 this.score = this.score + 1
             }
         }
+        var result = new Results(this.username, this.subject, this.score);
+        this.resultService.saveResults(result).subscribe();
         this.router.navigate(['result'], { queryParams: { 'result': this.score, 'allanswers': JSON.stringify(this.allAnswers) } });
     }
 }

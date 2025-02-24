@@ -35,7 +35,7 @@ export const routes: Routes = [
     {
         path: 'manageQuestions',
         component: ManageQuestionComponent,
-        // canActivate: [adminAuthGuard]
+        canActivate: [adminAuthGuard]
     },
     {
         path: 'register',

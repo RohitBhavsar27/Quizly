@@ -1,27 +1,39 @@
 <div class="content">
     <div class="page-heading">USER SIGN-IN</div>
-    <form>
+    <form [formGroup]="myLoginForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" [(ngModel)]="user.username" class="form-control" placeholder="@username">
-        </div>
-        
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" [(ngModel)]="user.password" class="form-control">
+            <input type="text" id="username" name="username" formControlName="username" class="form-control"
+                placeholder="@username">
+            <div class="validation"
+                *ngIf="myLoginForm.get('username')?.invalid && myLoginForm.get('username')?.touched">
+                Enter a valid username.
+            </div>
         </div>
 
         <div class="mb-3">
-        <label for="subject" class="form-label">Subject</label>
-        <select class="form-select" aria-label="Default select example" name = "subject" [(ngModel)]="subject">
-            <option value="" selected disabled hidden>Choose here</option>
-            <option *ngFor="let subject of subjects" value="{{ subject }}">
-                {{ subject }}
-            </option>
-          </select>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" formControlName="password" class="form-control">
+            <div class="validation"
+                *ngIf="myLoginForm.get('password')?.invalid && myLoginForm.get('password')?.touched">
+                Enter a valid password.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <select class="form-select" name="subject" formControlName="subject">
+                <option value="" selected disabled hidden>Choose here</option>
+                <option *ngFor="let subject of subjects" [value]="subject">
+                    {{ subject }}
+                </option>
+            </select>
+            <div class="validation" *ngIf="myLoginForm.get('subject')?.invalid && myLoginForm.get('subject')?.touched">
+                Please select a subject.
+            </div>
         </div>
 
         <p>Don't have an account? <a routerLink="/register">Sign Up</a></p>
-        <button type="submit" (click)="validateUser()" class="btn btn-success">Sign In</button>
+        <button type="submit" [disabled]="myLoginForm.invalid" class="btn btn-success">Sign In</button>
     </form>
 </div>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +9,12 @@ export class AdminService {
 
     constructor(private httpclient: HttpClient) { }
 
-    validateAdmin(admin: Admin): Observable<boolean> {
-        return this.httpclient.post<boolean>("http://127.0.0.1:8000/Exam_api/validateAdmin/", admin)
+    validateAdmin(admin: Admin): Observable<any> {
+        return this.httpclient.post<boolean>("http://127.0.0.1:8000/Exam_api/validateAdmin/", admin).pipe(
+            catchError(error => {
+                return throwError("Invalid Credentials.");
+            })
+        );;
     }
 
     getResults(subject: string) {

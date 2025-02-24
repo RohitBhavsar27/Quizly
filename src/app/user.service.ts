@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -10,12 +11,16 @@ export class UserService {
 
     }
 
-    validateUser(user: User) {
-        return this.httpclient.post<boolean>("http://127.0.0.1:8000/Exam_api/validateUser/",user);
+    validateUser(user: User): Observable<any> {
+        return this.httpclient.post<boolean>("https://online-exam-client.vercel.app/Exam_api/validateUser/", user).pipe(
+            catchError(error => {
+                return throwError("Invalid Credentials.");
+            })
+        );;
     }
 
     signUp(user: User) {
-        return this.httpclient.post<boolean>("http://127.0.0.1:8000/Exam_api/signUp/",user);
+        return this.httpclient.post<boolean>("https://online-exam-client.vercel.app/Exam_api/signUp/", user);
     }
 }
 

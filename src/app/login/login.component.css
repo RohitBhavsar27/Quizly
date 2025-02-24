@@ -38,3 +38,9 @@ button{
     width: 150px;
     margin: 0 auto;
 }
+
+.validation{
+    font-style: italic;
+    font-size: small;
+    color: red
+}

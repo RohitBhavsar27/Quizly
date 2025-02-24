@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -11,29 +12,53 @@ export class QuestionService {
     }
 
     getAllQuestions(subject: string) {
-        return this.httpClient.get<Questions[]>("http://127.0.0.1:8000/Exam_api/getAllQuestions/" + subject)
+        return this.httpClient.get<Questions[]>("http://localhost:8000/Exam_api/getAllQuestions/" + subject)
     }
 
-    getAllSubjects() {
-        return this.httpClient.get<string[]>("http://127.0.0.1:8000/Exam_api/getAllSubjects/")
+    getAllSubjects(): Observable<string[]> {
+        return this.httpClient.get<string[]>("http://localhost:8000/Exam_api/getAllSubjects/").pipe(
+            catchError(error => {
+                console.error("Error fetching subjects", error);
+                return throwError(() => new Error("Failed to fetch subjects."));
+            })
+        );
     }
 
-    addQuestions(questions: Questions) {
-        return this.httpClient.post<boolean>("http://localhost:8000/Exam_api/addQuestions", questions);
+
+
+    addQuestions(questions: Questions): Observable<any> {
+        return this.httpClient.post<any>("https://online-exam-client.vercel.app/Exam_api/addQuestions/", questions).pipe(
+            catchError(error => {
+                return throwError("Failed to add question.");
+            })
+        );
     }
 
-    updateQuestions(questions: Questions) {
-        return this.httpClient.put<boolean>("http://localhost:8000/Exam_api/updateQuestions/", questions);
+    updateQuestions(questions: Questions): Observable<any> {
+        return this.httpClient.put<any>("https://online-exam-client.vercel.app/Exam_api/updateQuestions/", questions).pipe(
+            catchError(error => {
+                return throwError("Failed to update question.");
+            })
+        );
     }
 
-    viewQuestions(qno: number, subject: string) {
-        return this.httpClient.get<Questions>("http://localhost:8000/Exam_api/viewQuestions/" + qno + "/" + subject);
+    viewQuestions(qno: number, subject: string): Observable<Questions> {
+        return this.httpClient.get<Questions>("https://online-exam-client.vercel.app/Exam_api/viewQuestions/" + qno + "/" + subject).pipe(
+            catchError(error => {
+                return throwError("Question with given data is not available.");
+            })
+        );
     }
 
-    deleteQuestions(qno: number, subject: string) {
-        return this.httpClient.delete<boolean>("http://localhost:8000/Exam_api/deleteQuestions/" + qno + "/" + subject);
+    deleteQuestions(qno: number, subject: string): Observable<any> {
+        return this.httpClient.delete<boolean>("https://online-exam-client.vercel.app/Exam_api/deleteQuestions/" + qno + "/" + subject).pipe(
+            catchError(error => {
+                return throwError("Question with given data is not available.");
+            })
+        );
     }
 }
+
 
 export class Questions {
     qno: number;

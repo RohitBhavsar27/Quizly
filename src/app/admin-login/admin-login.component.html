@@ -1,17 +1,23 @@
 <div class="content">
     <div class="page-heading">ADMIN SIGN-IN</div>
-    <form>
+    <form [formGroup]="myAdminLoginForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" [(ngModel)]="user.username" class="form-control" placeholder="@username">
+            <input type="text" id="username" name="username" formControlName="username" [(ngModel)]="user.username" class="form-control" placeholder="@username">
+            <div class="validation" *ngIf="myAdminLoginForm.get('username')?.invalid && myAdminLoginForm.get('username')?.touched">
+                Enter a valid username.
+            </div>
         </div>
         
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" [(ngModel)]="user.password" class="form-control">
+            <input type="password" id="password" name="password" formControlName="password" [(ngModel)]="user.password" class="form-control">
+            <div class="validation" *ngIf="myAdminLoginForm.get('password')?.invalid && myAdminLoginForm.get('password')?.touched">
+                Enter a valid password.
+            </div>
         </div>
 
-        <button type="submit" (click)="validateAdmin()" class="btn btn-success">Sign In</button>
+        <button type="submit" [disabled]="myAdminLoginForm.invalid"(click)="validateAdmin()" class="btn btn-success">Sign In</button>
     </form>
 </div>
 

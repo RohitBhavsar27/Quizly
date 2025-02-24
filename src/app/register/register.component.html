@@ -1,39 +1,66 @@
-
 <div class="content">
     <div class="page-heading">USER SIGN-UP</div>
-    <form>
+    <form [formGroup]="myUserRegistrationForm" (ngSubmit)="onSubmit()">
         <div class="row g-3">
             <div class="col">
                 <label for="fname" class="form-label">First Name</label>
-                <input type="text" id="fname" name="fname" [(ngModel)]="user.fname" class="form-control"
-                    placeholder="First name" aria-label="First name">
+                <input type="text" id="fname" name="fname" formControlName="fname" [(ngModel)]="user.fname"
+                    class="form-control" placeholder="First name" aria-label="First name">
+                <div class="validation"
+                    *ngIf="myUserRegistrationForm.get('fname')?.invalid && myUserRegistrationForm.get('fname')?.touched">
+                    First Name is Required
+                </div>
             </div>
             <div class="col">
                 <label for="lname" class="form-label">Last Name</label>
-                <input type="text" id="lname" name="lname" [(ngModel)]="user.lname" class="form-control"
-                    placeholder="Last name" aria-label="Last name">
+                <input type="text" id="lname" name="lname" formControlName="lname" [(ngModel)]="user.lname"
+                    class="form-control" placeholder="Last name" aria-label="Last name">
+                <div class="validation"
+                    *ngIf="myUserRegistrationForm.get('lname')?.invalid && myUserRegistrationForm.get('lname')?.touched">
+                    Last Name is Required
+                </div>
             </div>
         </div>
 
         <div class="mb-3 mt-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" id="email" name="email" [(ngModel)]="user.emailId" class="form-control"
-                placeholder="name@example.com">
+            <input type="email" id="email" name="email" formControlName="email" [(ngModel)]="user.emailId"
+                class="form-control" placeholder="name@example.com">
+            <div class="validation"
+                *ngIf="myUserRegistrationForm.get('email')?.invalid && myUserRegistrationForm.get('email')?.touched">
+                Enter a valid email.
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" [(ngModel)]="user.username" class="form-control"
-                placeholder="@username">
+            <input type="text" id="username" name="username" formControlName="username" [(ngModel)]="user.username"
+                class="form-control" placeholder="@username">
+            <div class="validation"
+                *ngIf="myUserRegistrationForm.get('username')?.invalid && myUserRegistrationForm.get('username')?.touched">
+                Enter a valid username.
+            </div>
+
         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" [(ngModel)]="user.password" class="form-control"
-                placeholder="Password must be atleast 8 characters">
+            <input type="password" id="password" name="password" formControlName="password" [(ngModel)]="user.password"
+                class="form-control" placeholder="Password must be at least 8 characters">
+            <div class="validation"
+                *ngIf="myUserRegistrationForm.get('password')?.invalid && myUserRegistrationForm.get('password')?.touched">
+                <span *ngIf="myUserRegistrationForm.get('password')?.errors?.['required']">
+                    Password is required.
+                </span>
+                <span *ngIf="myUserRegistrationForm.get('password')?.errors?.['minlength']">
+                    Password must be at least 8 characters.
+                </span>
+            </div>
         </div>
 
-        <p>Already have an account? <a routerLink="/login">Sign In</a> Instead</p> 
-        <button type="submit" (click)="signUp()" class="btn btn-success">Sign Up</button>
+
+        <p>Already have an account? <a routerLink="/login">Sign In</a> Instead</p>
+        <button type="submit" [disabled]="myUserRegistrationForm.invalid" (click)="signUp()"
+            class="btn btn-success">Sign Up</button>
     </form>
 </div>

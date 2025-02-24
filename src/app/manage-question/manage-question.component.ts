@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
     styleUrl: './manage-question.component.css'
 })
 export class ManageQuestionComponent {
-    message: string = "";
 
     questions: Questions = new Questions(0, '', '', '', '', '', '', '');
 
@@ -20,23 +19,61 @@ export class ManageQuestionComponent {
     }
 
     addQuestions() {
-        this.questionService.addQuestions(this.questions).subscribe(answer => this.message = "question added");
-        alert("Question Added Successfully.")
+        this.questionService.addQuestions(this.questions).subscribe(
+            response => {
+                if (response.success) {
+                    alert("Question added successfully.");
+                } else {
+                    alert("Failed to add question.");
+                }
+            },
+            error => {
+                alert("Failed to add question. Please check your input.");
+            }
+        );
     }
 
     viewQuestions() {
-        this.questionService.viewQuestions(this.questions.qno, this.questions.subject).subscribe(question => this.questions = question);
+        this.questionService.viewQuestions(this.questions.qno, this.questions.subject).subscribe(
+            question => {
+                this.questions = question;
+            },
+            error => {
+                alert("Question with given data is not available.");
+            }
+        );
     }
 
     updateQuestions() {
-        this.questionService.updateQuestions(this.questions).subscribe(answer => this.message = "question updated");
-        alert("Question Updated Successfully.")
-
+        this.questionService.updateQuestions(this.questions).subscribe(
+            response => {
+                if (response.success) {
+                    alert("Question updated successfully.");
+                } else {
+                    alert("Failed to update question.");
+                }
+            },
+            error => {
+                alert("Failed to update question. Please check your input.");
+            }
+        );
     }
 
     deleteQuestions() {
-        this.questionService.deleteQuestions(this.questions.qno, this.questions.subject).subscribe(answer => this.message = "question deleted");
-        alert("Question Deleted Successfully.")
+        this.questionService.deleteQuestions(this.questions.qno, this.questions.subject).subscribe(
+            response => {
+                if (response.success) {
+                    alert("Question deleted successfully.");
+                } else {
+                    alert("Failed to delete question.");
+                }
+            },
+            error => {
+                alert("Question with given data is not available.");
+            }
+        );
     }
-
 }
+
+
+

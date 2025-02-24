@@ -11,7 +11,7 @@ export class ResultService {
     }
     saveResults(result: Results) {
         console.log("Sending Data:", result);  // ✅ Debugging
-        return this.httpClient.post<boolean>("https://online-exam-client.vercel.app/Exam_api/saveResults/", result);
+        return this.httpClient.post<boolean>("https://quizly-backend-two.vercel.app/Exam_api/saveResults/", result);
     }
 
 }

@@ -12,7 +12,7 @@ export class UserService {
     }
 
     validateUser(user: User): Observable<any> {
-        return this.httpclient.post<boolean>("https://online-exam-client.vercel.app/Exam_api/validateUser/", user).pipe(
+        return this.httpclient.post<boolean>("https://quizly-backend-two.vercel.app/Exam_api/validateUser/", user).pipe(
             catchError(error => {
                 return throwError("Invalid Credentials.");
             })
@@ -20,7 +20,7 @@ export class UserService {
     }
 
     signUp(user: User) {
-        return this.httpclient.post<boolean>("https://online-exam-client.vercel.app/Exam_api/signUp/", user);
+        return this.httpclient.post<boolean>("https://quizly-backend-two.vercel.app/Exam_api/signUp/", user);
     }
 }
 

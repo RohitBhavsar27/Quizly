@@ -12,11 +12,11 @@ export class QuestionService {
     }
 
     getAllQuestions(subject: string) {
-        return this.httpClient.get<Questions[]>("http://localhost:8000/Exam_api/getAllQuestions/" + subject)
+        return this.httpClient.get<Questions[]>("https://online-exam-client.vercel.app/Exam_api/getAllQuestions/" + subject)
     }
 
     getAllSubjects(): Observable<string[]> {
-        return this.httpClient.get<string[]>("http://localhost:8000/Exam_api/getAllSubjects/").pipe(
+        return this.httpClient.get<string[]>("https://online-exam-client.vercel.app/Exam_api/getAllSubjects/").pipe(
             catchError(error => {
                 console.error("Error fetching subjects", error);
                 return throwError(() => new Error("Failed to fetch subjects."));

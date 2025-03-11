@@ -12,11 +12,11 @@ export class QuestionService {
     }
 
     getAllQuestions(subject: string) {
-        return this.httpClient.get<Questions[]>("https://quizly-backend-two.vercel.app/Exam_api/getAllQuestions/" + subject)
+        return this.httpClient.get<Questions[]>("https://quizly-backend-psi.vercel.app/Exam_api/getAllQuestions/" + subject)
     }
 
     getAllSubjects(): Observable<string[]> {
-        return this.httpClient.get<string[]>("https://quizly-backend-two.vercel.app/Exam_api/getAllSubjects/").pipe(
+        return this.httpClient.get<string[]>("https://quizly-backend-psi.vercel.app/Exam_api/getAllSubjects/").pipe(
             catchError(error => {
                 console.error("Error fetching subjects", error);
                 return throwError(() => new Error("Failed to fetch subjects."));
@@ -27,7 +27,7 @@ export class QuestionService {
 
 
     addQuestions(questions: Questions): Observable<any> {
-        return this.httpClient.post<any>("https://quizly-backend-two.vercel.app/Exam_api/addQuestions/", questions).pipe(
+        return this.httpClient.post<any>("https://quizly-backend-psi.vercel.app/Exam_api/addQuestions/", questions).pipe(
             catchError(error => {
                 return throwError("Failed to add question.");
             })
@@ -35,7 +35,7 @@ export class QuestionService {
     }
 
     updateQuestions(questions: Questions): Observable<any> {
-        return this.httpClient.put<any>("https://quizly-backend-two.vercel.app/Exam_api/updateQuestions/", questions).pipe(
+        return this.httpClient.put<any>("https://quizly-backend-psi.vercel.app/Exam_api/updateQuestions/", questions).pipe(
             catchError(error => {
                 return throwError("Failed to update question.");
             })
@@ -43,7 +43,7 @@ export class QuestionService {
     }
 
     viewQuestions(qno: number, subject: string): Observable<Questions> {
-        return this.httpClient.get<Questions>("https://quizly-backend-two.vercel.app/Exam_api/viewQuestions/" + qno + "/" + subject).pipe(
+        return this.httpClient.get<Questions>("https://quizly-backend-psi.vercel.app/Exam_api/viewQuestions/" + qno + "/" + subject).pipe(
             catchError(error => {
                 return throwError("Question with given data is not available.");
             })
@@ -51,7 +51,7 @@ export class QuestionService {
     }
 
     deleteQuestions(qno: number, subject: string): Observable<any> {
-        return this.httpClient.delete<boolean>("https://quizly-backend-two.vercel.app/Exam_api/deleteQuestions/" + qno + "/" + subject).pipe(
+        return this.httpClient.delete<boolean>("https://quizly-backend-psi.vercel.app/Exam_api/deleteQuestions/" + qno + "/" + subject).pipe(
             catchError(error => {
                 return throwError("Question with given data is not available.");
             })
